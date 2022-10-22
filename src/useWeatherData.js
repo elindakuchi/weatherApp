@@ -30,7 +30,7 @@ const weatherReducer = (state, action) => {
       return {
         loading: false,
         success: action.payload,
-        error: "",
+        error: false,
       };
     default:
       return state;
@@ -44,15 +44,11 @@ const useWeatherData = (location) => {
     const API_KEY = "808564eb9e08185721a0b6990b924b08";
     const URL = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}`;
 
-    axios
-      .get(URL)
-      .then((response) => {
-        dispatch({ type: ACTIONS.SUCCESS, payload: response.data });
-      })
-      .catch((error) => {
-        dispatch({ type: ACTIONS.ERROR });
-      });
-  }, []);
+    axios.get(URL).then((response) => {
+      console.log("response", response);
+      dispatch({ type: ACTIONS.SUCCESS, payload: response.data });
+    });
+  }, [location]);
 
   return state;
 };

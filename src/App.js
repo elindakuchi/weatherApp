@@ -1,11 +1,12 @@
 import "./App.css";
-import Main from "./components/Main";
+import WeatherData from "./components/WeatherData";
+import Test from "./components/Test";
 import Wrapper from "./components/Wrapper";
 
 function App() {
   return (
     <Wrapper title="Weather App">
-      <Main />
+      <WeatherData />
     </Wrapper>
   );
 }
