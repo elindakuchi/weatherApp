@@ -4,14 +4,10 @@ import useWeatherData from "../useWeatherData";
 export default function Test() {
   const state = useWeatherData("London");
   const { loading, success, error } = state;
-  const { main } = success;
-  const { temp, pressure, humidity } = main;
+  const { temp, humidity, pressure } = success.main;
 
   const tempCelcius = (temp) => Math.round(temp - 273.15) + " °C";
 
-  console.log("temp", temp);
-
-  console.log("success", success);
   return (
     <>
       <div>{"Loading..." && loading}</div>

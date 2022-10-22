@@ -45,7 +45,6 @@ const useWeatherData = (location) => {
     const URL = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}`;
 
     axios.get(URL).then((response) => {
-      console.log("response", response);
       dispatch({ type: ACTIONS.SUCCESS, payload: response.data });
     });
   }, [location]);
