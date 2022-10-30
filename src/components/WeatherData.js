@@ -2,20 +2,25 @@ import React from "react";
 import useWeatherData from "../useWeatherData";
 
 const WeatherData = () => {
-  const state = useWeatherData("London");
-  const { loading, success, error } = state;
-  const { main } = success;
-  const { temp, humidity, pressure } = main;
+  const state = useWeatherData("Berlin");
+  console.log("state", state);
+
+  if (state.type === "Loading") {
+    return <div>loading...</div>;
+  }
+  if (state.type === "Error") {
+    return <div>Something went wrong...</div>;
+  }
+  const { temp, humidity, pressure } = state.success.main;
 
   const tempCelcius = (temp) => Math.round(temp - 273.15) + " °C";
 
   return (
     <>
-      {loading && <p>loading...</p>}
-      {success && (
+      {state.type === "success" && (
         <div>
           <p style={{ color: "palevioletred", marginLeft: "30px" }}>
-            Weather forecast for <span>{"London"}</span>
+            Weather forecast for <span>{"Berlin"}</span>
           </p>
           <div
             style={{
@@ -40,7 +45,6 @@ const WeatherData = () => {
           </div>
         </div>
       )}
-      {error && <p>'Something went wrong...</p>}
     </>
   );
 };

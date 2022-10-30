@@ -2,9 +2,10 @@ import React from "react";
 import useWeatherData from "../useWeatherData";
 
 export default function Test() {
-  const state = useWeatherData("London");
+  const state = useWeatherData("Berlin");
   const { loading, success, error } = state;
   const { temp, humidity, pressure } = success.main;
+  console.log("temp", temp);
 
   const tempCelcius = (temp) => Math.round(temp - 273.15) + " °C";
 

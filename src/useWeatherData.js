@@ -16,21 +16,21 @@ const weatherReducer = (state, action) => {
   switch (action.type) {
     case ACTIONS.LOADING:
       return {
-        loading: "It is loading...",
-        success: {},
-        error: "",
+        ...state,
+        loading: true,
       };
     case ACTIONS.ERROR:
       return {
         loading: false,
-        post: {},
+        success: {},
         error: "Something went wrong!",
       };
     case ACTIONS.SUCCESS:
+      console.log("action.payload", action.payload);
       return {
+        ...state,
         loading: false,
         success: action.payload,
-        error: false,
       };
     default:
       return state;
@@ -45,6 +45,7 @@ const useWeatherData = (location) => {
     const URL = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}`;
 
     axios.get(URL).then((response) => {
+      console.log("response", response);
       dispatch({ type: ACTIONS.SUCCESS, payload: response.data });
     });
   }, [location]);

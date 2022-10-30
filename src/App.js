@@ -1,12 +1,16 @@
 import "./App.css";
-import Wrapper from "./components/Wrapper";
-import Test from "./components/Test";
+import Home from "./components/Home";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 function App() {
+  const client = new ApolloClient({
+    cache: new InMemoryCache(),
+    uri: "https://graphql-weather-api.herokuapp.com/",
+  });
   return (
-    <Wrapper title="Weather App">
-      <Test />
-    </Wrapper>
+    <ApolloProvider client={client}>
+      <Home />
+    </ApolloProvider>
   );
 }
 
