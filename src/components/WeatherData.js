@@ -3,21 +3,20 @@ import useWeatherData from "../useWeatherData";
 
 const WeatherData = () => {
   const state = useWeatherData("Berlin");
-  console.log("state", state);
 
-  if (state.type === "Loading") {
+  if (state.type === "loading") {
     return <div>loading...</div>;
   }
-  if (state.type === "Error") {
+  if (state.type === "error") {
     return <div>Something went wrong...</div>;
   }
-  const { temp, humidity, pressure } = state.success.main;
+  const { temp, humidity, pressure } = state.data.main;
 
   const tempCelcius = (temp) => Math.round(temp - 273.15) + " °C";
 
   return (
     <>
-      {state.type === "success" && (
+      {state.type === "data" && (
         <div>
           <p style={{ color: "palevioletred", marginLeft: "30px" }}>
             Weather forecast for <span>{"Berlin"}</span>

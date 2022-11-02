@@ -4,15 +4,17 @@ import { GET_WEATHER_QUERY } from "./graphql/queries";
 
 function Home() {
   const [citySearched, setCitySearched] = useState("");
-  const [getWeather, { data, error }] = useLazyQuery(GET_WEATHER_QUERY, {
-    variables: { name: citySearched },
-  });
+  const [getWeather, { data, error, loading }] = useLazyQuery(
+    GET_WEATHER_QUERY,
+    {
+      variables: { name: citySearched },
+    }
+  );
+  // const tempCelcius = (temp) => Math.round(temp - 273.15) + " °C";
 
-  if (error) return <h1> Error found</h1>;
+  if (error) return <h1> Something went wrong...</h1>;
 
-  if (data) {
-    console.log(data);
-  }
+  if (loading) return <h1> Loading..</h1>;
 
   return (
     <div className="home">
@@ -25,18 +27,37 @@ function Home() {
         }}
       />
       <button onClick={() => getWeather()}> Search</button>
-      <div className="weather">
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          width: "500px",
+          marginLeft: "30px",
+        }}
+      >
         {data && (
           <>
             <h1> {data.getCityByName.name} </h1>
-            <h1>
-              {" "}
-              Temperature: {data.getCityByName.weather.temperature.actual}
-            </h1>
-            <h1>
-              Description: {data.getCityByName.weather.summary.description}
-            </h1>
-            <h1>Wind Speed: {data.getCityByName.weather.wind.speed}</h1>
+
+            <span>
+              <p>Temperature</p>
+              <p style={{ color: "palevioletred" }}>
+                {data.getCityByName.weather.temperature.actual}
+              </p>
+            </span>
+
+            <span>
+              <p>Description</p>
+              <p style={{ color: "palevioletred" }}>
+                {data.getCityByName.weather.summary.description}
+              </p>
+            </span>
+            <span>
+              <p>Wind Speed:</p>
+              <p style={{ color: "palevioletred" }}>
+                {data.getCityByName.weather.wind.speed}
+              </p>
+            </span>
           </>
         )}
       </div>

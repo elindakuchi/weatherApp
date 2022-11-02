@@ -8,29 +8,23 @@ const ACTIONS = {
 };
 
 const initialState = {
-  loading: true,
-  error: "",
-  success: {},
+  type: "loading",
 };
 const weatherReducer = (state, action) => {
   switch (action.type) {
     case ACTIONS.LOADING:
       return {
-        ...state,
-        loading: true,
+        type: "loading",
       };
     case ACTIONS.ERROR:
       return {
-        loading: false,
-        success: {},
+        type: "error",
         error: "Something went wrong!",
       };
     case ACTIONS.SUCCESS:
-      console.log("action.payload", action.payload);
       return {
-        ...state,
-        loading: false,
-        success: action.payload,
+        type: "data",
+        data: action.payload,
       };
     default:
       return state;
