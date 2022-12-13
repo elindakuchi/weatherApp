@@ -37,11 +37,17 @@ const useWeatherData = (location) => {
   useEffect(() => {
     const API_KEY = "808564eb9e08185721a0b6990b924b08";
     const URL = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}`;
-
-    axios.get(URL).then((response) => {
-      console.log("response", response);
-      dispatch({ type: ACTIONS.SUCCESS, payload: response.data });
-    });
+    if (location) {
+      axios.get(URL).then((response) => {
+        console.log("response", response);
+        dispatch({ type: ACTIONS.SUCCESS, payload: response.data });
+      });
+    } else {
+      dispatch({
+        type: ACTIONS.SUCCESS,
+        payload: { main: { temp: 0, humidity: 0, pressure: 0 } },
+      });
+    }
   }, [location]);
 
   return state;

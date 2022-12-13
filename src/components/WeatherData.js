@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import useWeatherData from "../useWeatherData";
 
 const WeatherData = () => {
-  const state = useWeatherData("Berlin");
+  const [citySearched, setCitySearched] = useState("");
+  const state = useWeatherData(citySearched);
 
   if (state.type === "loading") {
     return <div>loading...</div>;
@@ -16,10 +17,19 @@ const WeatherData = () => {
 
   return (
     <>
+      <h1>Search For Weather</h1>
+      <input
+        type="text"
+        placeholder="City name..."
+        onChange={(event) => {
+          setCitySearched(event.target.value);
+        }}
+      />
+      {/* <button onClick={() => state.data.main}> Search</button> */}
       {state.type === "data" && (
         <div>
           <p style={{ color: "palevioletred", marginLeft: "30px" }}>
-            Weather forecast for <span>{"Berlin"}</span>
+            Weather forecast for <span>{state.data.name}</span>
           </p>
           <div
             style={{
